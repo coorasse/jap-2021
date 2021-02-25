@@ -16,16 +16,8 @@ class RandomAlgorithm
                             .reverse
 
       streets.each_with_index do |street, i|
-        car_score = case street.cars.count
-                    when 0..10
-                      1
-                    when 11..100
-                      2
-                    else
-                      4
-                    end
-
-        duration = car_score
+        x = street.cars.count.to_f
+        duration = (0.00004667*x*x+0.007667*x+0.5000).ceil
         intersection.schedule_entries << ScheduleEntry.new(street_name: street.name, duration: duration)
       end
 
