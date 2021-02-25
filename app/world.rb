@@ -13,26 +13,15 @@ class ScheduleEntry < ClosedStruct
 end
 
 class Intersection < ClosedStruct
-  attr_accessor :schedule_entries
+  attr_accessor :schedule_entries, :out_streets, :in_streets
 end
 
 class Street < ClosedStruct
   attr_accessor :length, :start, :end
 end
 
-class Car
-  attr_accessor :time_budget, :nodes, :streets
-
-  def initialize(time_budget, initial_node)
-    self.time_budget = time_budget
-    self.nodes = []
-    self.streets = []
-    nodes << initial_node
-  end
-
-  def location
-    nodes.last
-  end
+class Car < ClosedStruct
+  attr_accessor :streets
 end
 
 class World < ClosedStruct

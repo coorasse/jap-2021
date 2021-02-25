@@ -17,14 +17,15 @@ class FileReader
     streets = streets_count.times.map do |i|
       street_line = lines[i + 1].split
       street_name = street_line[3]
-      Street.new(start: street_line[0], end: street_line[1], name: street_line[2], length: street_name)
-      intersections[street_line[0]] ||= { out_streets: [], in_streets: [], schedule: []}
-      intersections[street_line[0]][:out_streets] << street_name
-      intersections[street_line[1]] ||= { out_streets: [], in_streets: [], schedule: []}
-      intersections[street_line[1]][:in_streets] << street_name
+      street = Street.new(start: street_line[0], end: street_line[1], name: street_line[2], length: street_name)
+      intersections[street_line[0]] ||= Intersection.new(out_streets: [], in_streets: [], schedule_entries: [])
+      intersections[street_line[0]].out_streets << street
+      intersections[street_line[1]] ||= Intersection.new(out_streets: [], in_streets: [], schedule_entries: [])
+      intersections[street_line[1]].in_streets << street
     end
     cars = cars_count.times.map do |i|
-      car_line = lines[i + 1 + str]
+      car_line = lines[i + 1 + streets_count].split
+      Car.new(streets: car_line[1..-1].map { |street_name| street_name})
     end
 
     World.new(streets: streets, simulation_time: simulation_time, bonus_points: bonus_points, intersections: intersections, cars: cars)
