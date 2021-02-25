@@ -11,20 +11,21 @@ class RandomAlgorithm
   def random_schedule
     @world.intersections.each do |(id, intersection)|
       streets = intersection.in_streets
-                            .sort_by { |street| street.cars_count }
-                            .select { |street| street.cars_count.positive? }
+                            .sort_by { |street| street.cars.count }
+                            .select { |street| street.cars.count.positive? }
                             .reverse
 
       streets.each_with_index do |street, i|
-        duration = case street.cars_count
-                   when 0..10
-                     1
-                   when 11..100
-                     2
-                   else
-                     4
-                   end
+        car_score = case street.cars.count
+                    when 0..10
+                      1
+                    when 11..100
+                      2
+                    else
+                      4
+                    end
 
+        duration = car_score
         intersection.schedule_entries << ScheduleEntry.new(street_name: street.name, duration: duration)
       end
 
