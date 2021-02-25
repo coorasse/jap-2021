@@ -2,18 +2,26 @@ class TimingAlgorithm
   def initialize(world)
     puts world.simulation_time
 
-    world.intersections.each do |(id, intersection)|
-      # puts '-- Intersection --'
-      total = intersection.in_streets.sum { |s| s.cars_count }
-      if total == 0
-        intersection.schedule_entries << ScheduleEntry.new(street_name: intersection.in_streets.first.name, duration: 1)
+    world.cars.each do |car|
+      car.streets do |streets|
+        world.intersection[streets.start].timing[0] = world.intersection[streets.start].timing[0] + 1
+
+        world.intersection[streets.end].timing[streets.lenght] = world.intersection[streets.start].timing[0] + 1
       end
-      intersection.in_streets.sort_by(&:cars_count).reverse.each do |street|
-        if street.cars_count != 0
-          n = ((total * 1.0 / street.cars_count) / 3).to_f.ceil
-          d = n == 0 ? 1 : n
-          intersection.schedule_entries << ScheduleEntry.new(street_name: street.name, duration: d)
-        end
+    end
+
+    world.intersections.each do |id, intersection|
+      total_cars = intersection.in_streets.sum { |s| s.cars.count }
+      next if total_cars == 0
+
+      intersection.in_streets.sort_by { |s| s.cars.count }.reverse.each do |street|
+        next if street.cars.count == 0
+        # loops = intersection.in_streets.count
+        loops = 10
+        weight_of_street_on_interception = (total_cars.to_f / street.cars.count)
+        time = (world.simulation_time / weight_of_street_on_interception / loops).to_f.ceil
+        time = time == 0 ? 1 : time
+        intersection.schedule_entries << ScheduleEntry.new(street_name: street.name, duration: time)
       end
     end
   end

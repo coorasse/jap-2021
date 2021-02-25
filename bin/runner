@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require_relative '../app/file_reader'
+require_relative '../app/file_writer'
+require_relative '../app/random_algorithm'
+require_relative '../app/simple_algorithm'
+
+# %w[a b c d e f].each do |letter|
+
+%w[d].each do |file_name|
+  world = FileReader.new("input_sets/#{file_name}.txt").world
+  SimpleAlgorithm.new(world)
+  # intersections = SimpleAlgorithm.new(world).world.intersections.values
+  intersections = world.intersections.values
+  FileWriter.new(intersections, "output_sets/#{file_name}.txt").write_out
+end
+

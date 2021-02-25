@@ -7,8 +7,9 @@ class FileWriter
 
   def write_out
     File.open(@output_path, 'w') do |file|
-      file.puts @intersections.length
-      @intersections.each do |intersection|
+      valid_intersections = @intersections.select { |i| i.schedule_entries.length > 0 }
+      file.puts valid_intersections.length
+      valid_intersections.each do |intersection|
         file.puts intersection.id
         file.puts intersection.schedule_entries.length
         intersection.schedule_entries.each do |entry|
