@@ -17,7 +17,7 @@ class Intersection < ClosedStruct
 end
 
 class Street < ClosedStruct
-  attr_accessor :length, :start, :end #start, end are IDs of intersections
+  attr_accessor :length, :name, :start, :end #start, end are IDs of intersections
 end
 
 class Car < ClosedStruct

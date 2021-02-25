@@ -5,7 +5,7 @@ RSpec.describe FileReader do
     world = FileReader.new('input_sets/a.txt').world
     expect(world.simulation_time).to eq(6)
     expect(world.intersections.keys.length).to eq(4)
-    expect(world.streets.length).to eq(5)
+    expect(world.streets.keys.length).to eq(5)
     expect(world.cars.length).to eq(2)
     expect(world.bonus_points).to eq(1000)
     expect(world.cars[0].streets.length).to eq(4)

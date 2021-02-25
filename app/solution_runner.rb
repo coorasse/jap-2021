@@ -1,3 +1,7 @@
+require_relative 'file_reader'
+require_relative 'simple_algorithm'
+require_relative 'file_writer'
+
 class SolutionRunner
   def self.run
     file_names = %w[a b c d e f]
@@ -9,3 +13,5 @@ class SolutionRunner
     end
   end
 end
+
+SolutionRunner.run
