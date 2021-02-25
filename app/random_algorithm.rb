@@ -16,7 +16,16 @@ class RandomAlgorithm
                             .reverse
 
       streets.each_with_index do |street, i|
-        intersection.schedule_entries << ScheduleEntry.new(street_name: street.name, duration: 2)
+        duration = case street.cars_count
+                   when 0..10
+                     1
+                   when 11..100
+                     2
+                   else
+                     4
+                   end
+
+        intersection.schedule_entries << ScheduleEntry.new(street_name: street.name, duration: duration)
       end
 
       if intersection.schedule_entries.empty?
