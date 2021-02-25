@@ -6,7 +6,7 @@ require_relative '../app/file_writer'
 require_relative '../app/random_algorithm'
 
 %w[a b c d e f].each do |letter|
-  world = FileReader.new('input_sets/a.txt').world
+  world = FileReader.new("input_sets/#{letter}.txt").world
   intersections = RandomAlgorithm.new(world).world.intersections.values
   FileWriter.new(intersections, "output_sets/random/#{letter}.txt").write_out
 end
