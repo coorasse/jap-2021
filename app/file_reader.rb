@@ -8,7 +8,7 @@ class FileReader
   def world
     lines = @file.split(/\n/)
     first_line = lines[0].split
-    nodes_count = first_line[0].to_i
+    simulation_time = first_line[0].to_i
     streets_count = first_line[1].to_i
     time_budget = first_line[2].to_i
     cars_count = first_line[3].to_i

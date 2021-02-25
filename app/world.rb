@@ -37,7 +37,7 @@ class Car
 end
 
 class World < ClosedStruct
-  attr_accessor :nodes, :streets, :cars
+  attr_accessor :nodes, :streets, :cars, :simulation_time
 
   def initialize(args)
     super(args)
