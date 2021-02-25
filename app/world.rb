@@ -13,11 +13,11 @@ class ScheduleEntry < ClosedStruct
 end
 
 class Intersection < ClosedStruct
-  attr_accessor :schedule_entries, :out_streets, :in_streets
+  attr_accessor :id, :schedule_entries, :out_streets, :in_streets
 end
 
 class Street < ClosedStruct
-  attr_accessor :length, :start, :end
+  attr_accessor :length, :start, :end #start, end are IDs of intersections
 end
 
 class Car < ClosedStruct
